@@ -13,7 +13,7 @@ $(document).ready(function () {
     //Array of messages
     var messages = {
         correct: "Congratulations, you got the right answer!",
-        incorrect: "Wrong!",
+        incorrect: "That's not the correct answer.",
         endTime: "Time's up!",
         finished: "Let's see how you did..."
     };
@@ -72,7 +72,7 @@ $(document).ready(function () {
     ];
 
 
-    // Functions
+    // FUNCTIONS
 
     //This captures user click on start button to create a new game
     $("#start").on("click", function () {
@@ -95,14 +95,15 @@ $(document).ready(function () {
         newQuestion();
     }
 
-    //This function displays a new question
+    //This function displays the next question
     function newQuestion() {
         $("#message").empty();
         $("#correctedAnswer").empty();
         answered = true;
 
-        //This shows your progress (number 1 of 5, etc.)
+        //This function displays the new question
         $("#currentQuestion").html("Question " + (currentQuestion + 1) + " of " + triviaQuestions.length);
+        $(".question").html(triviaQuestions[currentQuestion].question);
 
         //This function displays the new questions's answer options in multiple choice type
         for (var i = 0; i <= 5; i++) {
@@ -125,7 +126,7 @@ $(document).ready(function () {
         });
     }
 
-    //This function is establishing timer countdown
+    //This function is for the timer countdown
     function countdown() {
         seconds = 15;
         $("#timeLeft").html("00:" + seconds);
@@ -156,15 +157,15 @@ $(document).ready(function () {
         $("#currentQuestion").empty();
         $(".thisChoice").empty();
         $(".question").empty();
-
+    
 
         var rightAnswerText = triviaQuestions[currentQuestion].answerList[triviaQuestions[currentQuestion].answer];
-        var rightAnswerIndex = triviaQuestions[currentQuestion].answer;
+        var rightAnswerIndex = triviaQuestions[currentQuestion].answer;  
 
         //This checks to see if user choice is correct, incorrect, or unanswered
         if ((userSelect == rightAnswerIndex) && (answered === true)) {
             correctAnswer++;
-            $("#message").html(messages.correct);
+            $('#message').html(messages.correct);
         } else if ((userSelect != rightAnswerIndex) && (answered === true)) {
             incorrectAnswer++;
             $('#message').html(messages.incorrect);
@@ -187,6 +188,8 @@ $(document).ready(function () {
         $('#timeLeft').empty();
         $('#message').empty();
         $('#correctedAnswer').empty();
+  
+
         $('#finalMessage').html(messages.finished);
         $('#correctAnswers').html("Correct Answers: " + correctAnswer);
         $('#incorrectAnswers').html("Incorrect Answers: " + incorrectAnswer);
